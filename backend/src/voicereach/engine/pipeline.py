@@ -13,8 +13,12 @@ import asyncio
 import logging
 import time
 
+import numpy as np
+
 from voicereach.config import settings
 from voicereach.engine.gaze.calibration import GazeCalibrator
+from voicereach.engine.gaze.gaze_estimator import GazeEstimator
+from voicereach.engine.gaze.mediapipe_tracker import FaceData
 from voicereach.engine.gaze.smoother import DualAxisSmoother
 from voicereach.engine.gaze.zone_mapper import ZoneMapper, ZoneResult
 from voicereach.engine.input.ial import IAL
@@ -43,6 +47,7 @@ class Pipeline:
         self._calibrator = GazeCalibrator()
         self._smoother = DualAxisSmoother()
         self._zone_mapper = ZoneMapper(num_zones=settings.num_zones)
+        self._gaze_estimator = GazeEstimator()
 
         # Input
         self._ial = IAL()
@@ -68,6 +73,9 @@ class Pipeline:
         self._ial.subscribe(self._on_ial_event)
         await self._ial.start()
 
+        # Initialize gaze estimator (ONNX model, falls back to heuristic)
+        self._gaze_estimator.initialize()
+
         # Initialize TTS
         await self._tts_engine.initialize()
         self._tts_router.set_engine(self._tts_engine)
@@ -77,6 +85,7 @@ class Pipeline:
     async def shutdown(self) -> None:
         """Shutdown all components."""
         await self._ial.stop()
+        self._gaze_estimator.close()
         logger.info("Pipeline shut down")
 
     def set_message_callback(self, callback) -> None:
@@ -87,6 +96,25 @@ class Pipeline:
         """Process a gaze zone update from the client."""
         self._context.current_zone_id = zone_id
         return self._zone_mapper.map(zone_id / max(settings.num_zones - 1, 1), 0.5)
+
+    def process_face_data(self, face_data: FaceData) -> ZoneResult | None:
+        """Process extracted face data through gaze estimation + zone mapping.
+
+        This runs the full server-side gaze pipeline:
+          1. GazeEstimator  -- pitch/yaw from eye patches or heuristic
+          2. DualAxisSmoother -- Kalman filtering for stability
+          3. ZoneMapper -- continuous angles to discrete UI zone
+        """
+        gaze = self._gaze_estimator.estimate(face_data)
+        smoothed_pitch, smoothed_yaw = self._smoother.update(
+            gaze.pitch, gaze.yaw
+        )
+        # Normalise to 0-1 range for the zone mapper
+        norm_x = (smoothed_yaw + 30) / 60  # yaw:  -30 .. +30 degrees
+        norm_y = (smoothed_pitch + 20) / 40  # pitch: -20 .. +20 degrees
+        norm_x = max(0.0, min(1.0, norm_x))
+        norm_y = max(0.0, min(1.0, norm_y))
+        return self._zone_mapper.map(norm_x, norm_y)
 
     def handle_key(self, key: str) -> None:
         """Forward a keyboard event to the keyboard adapter."""

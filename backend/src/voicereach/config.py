@@ -40,11 +40,12 @@ class Settings(BaseSettings):
     # TTS
     tts_engine: str = "cosyvoice"
     tts_model_path: Path = Path("models/cosyvoice")
+    tts_model_dir: str = "models/CosyVoice2-0.5B"
     tts_default_speaker: str = "default"
 
     # Eye tracking
     camera_id: int = 0
-    gaze_model_path: Path = Path("models/gaze")
+    gaze_model_path: str = "models/l2cs_net.onnx"
     num_zones: int = 4
     calibration_points: int = 5
 
