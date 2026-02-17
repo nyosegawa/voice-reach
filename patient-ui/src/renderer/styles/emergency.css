@@ -1,0 +1,63 @@
+/* ============================================================
+   Emergency Screen Styles
+   Full-screen red alert with large interaction targets
+   ============================================================ */
+
+.emergency-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--accent-red);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: emergency-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes emergency-pulse {
+  0%, 100% { background-color: #dc2626; }
+  50% { background-color: #b91c1c; }
+}
+
+.emergency-screen__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--spacing-lg);
+  width: min(90vw, 800px);
+  height: min(80vh, 700px);
+  padding: var(--spacing-xl);
+}
+
+.emergency-screen__option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  padding: var(--spacing-xl);
+  color: #fff;
+  transition: all var(--transition-speed) ease;
+}
+
+.emergency-screen__option--gazed {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.emergency-screen__option-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.emergency-screen__option-label {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  text-align: center;
+  margin-top: var(--spacing-md);
+}

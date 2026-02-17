@@ -13,7 +13,7 @@ type ServerMessage = {
 export function useWebSocket() {
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectAttempts = useRef(0);
-  const reconnectTimer = useRef<ReturnType<typeof setTimeout>>();
+  const reconnectTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const setConnectionStatus = useAppStore((s) => s.setConnectionStatus);
   const setCandidates = useAppStore((s) => s.setCandidates);

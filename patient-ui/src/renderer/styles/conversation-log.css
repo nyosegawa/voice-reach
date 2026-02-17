@@ -1,0 +1,77 @@
+/* ============================================================
+   Conversation Log Styles
+   Side panel showing recent conversation entries
+   ============================================================ */
+
+.conversation-log {
+  position: fixed;
+  right: 0;
+  top: 48px;
+  bottom: 0;
+  width: 320px;
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  padding: var(--spacing-md) 20px;
+  overflow-y: auto;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.conversation-log::-webkit-scrollbar {
+  width: 4px;
+}
+
+.conversation-log::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.conversation-log__entry {
+  margin-bottom: var(--spacing-md);
+  opacity: 0;
+  animation: fade-in 0.3s ease forwards;
+}
+
+.conversation-log__entry--patient {
+  text-align: right;
+}
+
+.conversation-log__entry--partner {
+  text-align: left;
+}
+
+.conversation-log__text {
+  display: inline-block;
+  font-size: var(--font-md);
+  line-height: 1.5;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  max-width: 260px;
+}
+
+.conversation-log__entry--patient .conversation-log__text {
+  background: rgba(0, 212, 255, 0.15);
+  color: var(--accent-cyan);
+}
+
+.conversation-log__entry--partner .conversation-log__text {
+  background: rgba(255, 184, 0, 0.15);
+  color: var(--accent-amber);
+}
+
+.conversation-log__timestamp {
+  font-size: 11px;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  margin-top: var(--spacing-xs);
+}
+
+/* Fade effect for older entries */
+.conversation-log__entry:nth-last-child(3) {
+  opacity: 0.5;
+}
+.conversation-log__entry:nth-last-child(2) {
+  opacity: 0.75;
+}
+.conversation-log__entry:last-child {
+  opacity: 1;
+}

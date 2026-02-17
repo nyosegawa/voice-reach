@@ -1,0 +1,42 @@
+/* ============================================================
+   Gaze Debug Overlay Styles
+   Development-only overlay showing gaze tracking info
+   ============================================================ */
+
+.gaze-debug {
+  position: fixed;
+  bottom: var(--spacing-sm);
+  left: var(--spacing-sm);
+  background: rgba(0, 0, 0, 0.75);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-xs);
+  font-family: "SF Mono", "Fira Code", monospace;
+  color: var(--accent-green);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.gaze-debug__row {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.gaze-debug__label {
+  color: var(--text-secondary);
+  min-width: 80px;
+}
+
+/* Gaze cursor visualization (circle following gaze position) */
+.gaze-cursor {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-cyan);
+  background: rgba(0, 212, 255, 0.15);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 998;
+  transition: all 50ms linear;
+}

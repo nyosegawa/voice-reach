@@ -1,0 +1,115 @@
+/* ============================================================
+   VoiceReach Patient UI — Global Styles
+   AAC application for ALS patients (eye-gaze controlled)
+   ============================================================ */
+
+:root {
+  /* Colors — high-contrast dark theme for eye strain reduction */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-card-hover: #1e2d50;
+  --bg-card-active: #253660;
+
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0b0;
+  --text-muted: #6b7585;
+
+  /* Accent colors */
+  --accent-cyan: #00d4ff;
+  --accent-amber: #ffb800;
+  --accent-green: #22c55e;
+  --accent-red: #dc2626;
+  --accent-red-dark: #b91c1c;
+
+  /* Gaze interaction */
+  --gaze-active: #00d4ff;
+  --gaze-glow: rgba(0, 212, 255, 0.3);
+  --gaze-glow-strong: rgba(0, 212, 255, 0.6);
+
+  /* Sizing — minimum 120px interaction targets for eye gaze */
+  --bubble-min-size: 200px;
+  --font-xxl: 64px;
+  --font-xl: 32px;
+  --font-lg: 24px;
+  --font-md: 18px;
+  --font-sm: 14px;
+  --font-xs: 12px;
+  --border-radius: 24px;
+  --border-radius-md: 16px;
+  --border-radius-sm: 8px;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Transitions */
+  --transition-speed: 200ms;
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* === Reset === */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", -apple-system, sans-serif;
+  cursor: none; /* Hide cursor — gaze-controlled only */
+}
+
+/* Disable text selection globally for gaze UI */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === App Layout === */
+.app-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* === Global Animations === */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}

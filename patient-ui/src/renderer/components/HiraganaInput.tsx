@@ -22,30 +22,16 @@ export function HiraganaInput() {
   if (selectedGroup === null) {
     // Stroke 1: group selection
     return (
-      <div style={{ position: "absolute", inset: 0, padding: "64px" }}>
-        <div style={{ textAlign: "center", fontSize: "1.5rem", marginBottom: "24px" }}>
+      <div className="hiragana-input">
+        <div className="hiragana-input__display">
           {inputText || "文字を入力"}
         </div>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(5, 1fr)",
-          gridTemplateRows: "repeat(2, 1fr)",
-          gap: "12px",
-          height: "calc(100% - 80px)",
-        }}>
+        <div className="hiragana-input__grid">
           {HIRAGANA_GROUPS.map((group, i) => (
             <div
               key={i}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: "12px",
-                background: gazeZone === i ? "#2563eb" : "rgba(255, 255, 255, 0.1)",
-                border: gazeZone === i ? "3px solid #60a5fa" : "2px solid rgba(255, 255, 255, 0.2)",
-                fontSize: "2rem",
-                transition: "all 0.15s ease-out",
-              }}
+              className={`hiragana-input__key ${gazeZone === i ? 'hiragana-input__key--gazed' : ''}`}
+              onClick={() => setSelectedGroup(i)}
             >
               {group.label}
             </div>
@@ -58,31 +44,18 @@ export function HiraganaInput() {
   // Stroke 2: character selection within group
   const group = HIRAGANA_GROUPS[selectedGroup];
   return (
-    <div style={{ position: "absolute", inset: 0, padding: "64px" }}>
-      <div style={{ textAlign: "center", fontSize: "1.5rem", marginBottom: "24px" }}>
+    <div className="hiragana-input">
+      <div className="hiragana-input__display">
         {inputText || "文字を入力"} | {group.label}
       </div>
-      <div style={{
-        display: "flex",
-        gap: "16px",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "calc(100% - 80px)",
-      }}>
+      <div className="hiragana-input__char-row">
         {group.chars.map((char, i) => (
           <div
             key={i}
-            style={{
-              width: "120px",
-              height: "120px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "16px",
-              background: gazeZone === i ? "#2563eb" : "rgba(255, 255, 255, 0.1)",
-              border: gazeZone === i ? "3px solid #60a5fa" : "2px solid rgba(255, 255, 255, 0.2)",
-              fontSize: "3rem",
-              transition: "all 0.15s ease-out",
+            className={`hiragana-input__char-key ${gazeZone === i ? 'hiragana-input__char-key--gazed' : ''}`}
+            onClick={() => {
+              setInputText((prev) => prev + char);
+              setSelectedGroup(null);
             }}
           >
             {char}

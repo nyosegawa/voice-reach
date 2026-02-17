@@ -11,59 +11,31 @@ const CALIBRATION_POINTS = [
 export function CalibrationScreen() {
   const [currentPoint, setCurrentPoint] = useState(0);
 
+  // Advance to next calibration point (called by gaze dwell or click)
+  const advancePoint = () => setCurrentPoint((p) => p + 1);
+
   const point = CALIBRATION_POINTS[currentPoint];
   if (!point) {
     return (
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100%",
-        fontSize: "2rem",
-      }}>
-        校正完了
+      <div className="calibration-screen">
+        <div className="calibration-screen__complete">
+          校正完了
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ position: "absolute", inset: 0, background: "#0a0a1a" }}>
+    <div className="calibration-screen">
       <div
-        style={{
-          position: "absolute",
-          left: `${point.x}%`,
-          top: `${point.y}%`,
-          transform: "translate(-50%, -50%)",
-        }}
+        className="calibration-point__wrapper"
+        style={{ left: `${point.x}%`, top: `${point.y}%` }}
       >
-        <div
-          style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            background: "#3b82f6",
-            border: "4px solid #93c5fd",
-            animation: "pulse 1.5s ease-in-out infinite",
-          }}
-        />
-        <div
-          style={{
-            textAlign: "center",
-            marginTop: "16px",
-            fontSize: "1rem",
-            opacity: 0.7,
-          }}
-        >
-          この点を見つめてください ({currentPoint + 1}/5)
+        <div className="calibration-point" onClick={advancePoint} />
+        <div className="calibration-screen__instruction">
+          この点を見つめてください ({currentPoint + 1}/{CALIBRATION_POINTS.length})
         </div>
       </div>
-
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.3); opacity: 0.7; }
-        }
-      `}</style>
     </div>
   );
 }
