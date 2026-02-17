@@ -29,6 +29,7 @@ bench = ["asitop>=0.0.24", "psutil>=6"]
 voicereach = "voicereach.main:cli"
 voicereach-rec = "voicereach.tools.recording.cli:main"
 voicereach-bench = "voicereach.tools.benchmark.cli:main"
+voicereach-env = "voicereach.tools.env_check:main"
 
 [build-system]
 requires = ["hatchling"]
