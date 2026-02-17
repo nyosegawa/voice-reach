@@ -1,0 +1,4 @@
+packages:
+  - "patient-ui"
+  - "caregiver-pwa"
+  - "shared"

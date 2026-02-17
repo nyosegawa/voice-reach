@@ -1,0 +1,16 @@
+{
+  "name": "voicereach-monorepo",
+  "private": true,
+  "scripts": {
+    "dev:patient": "pnpm --filter patient-ui dev",
+    "dev:caregiver": "pnpm --filter caregiver-pwa dev",
+    "build:patient": "pnpm --filter patient-ui build",
+    "build:caregiver": "pnpm --filter caregiver-pwa build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.7"
+  }
+}

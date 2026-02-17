@@ -1,0 +1,38 @@
+[project]
+name = "voicereach-backend"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "websockets>=13",
+    "pydantic>=2.10",
+    "pydantic-settings>=2.6",
+    "mediapipe>=0.10",
+    "onnxruntime>=1.20",
+    "numpy>=1.26",
+    "opencv-python-headless>=4.10",
+    "soundfile>=0.12",
+    "librosa>=0.10",
+    "httpx>=0.28",
+    "openai>=1.60",
+    "google-genai>=1.0",
+    "anthropic>=0.40",
+]
+
+[project.optional-dependencies]
+mlx = ["mlx>=0.22", "mlx-lm>=0.20"]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "pytest-cov>=6", "ruff>=0.8", "mypy>=1.13"]
+bench = ["asitop>=0.0.24", "psutil>=6"]
+
+[project.scripts]
+voicereach = "voicereach.main:cli"
+voicereach-rec = "voicereach.tools.recording.cli:main"
+voicereach-bench = "voicereach.tools.benchmark.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/voicereach"]

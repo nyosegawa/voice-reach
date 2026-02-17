@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+
+# uv
+uv.lock
+
+# Node.js
+node_modules/
+.pnpm-store/
+
+# Build outputs
+patient-ui/dist/
+patient-ui/out/
+caregiver-pwa/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Test / Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+coverage/
+
+# ML Models (large files)
+*.onnx
+*.mlx
+*.gguf
+*.bin
+!backend/src/voicereach/engine/gaze/models/.gitkeep
+
+# Audio data
+*.wav
+*.mp3
+*.flac
+recordings/
+
+# Logs
+*.log
