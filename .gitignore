@@ -43,6 +43,8 @@ Thumbs.db
 htmlcov/
 .pytest_cache/
 coverage/
+playwright-report/
+test-results/
 
 # ML Models (large files)
 *.onnx
