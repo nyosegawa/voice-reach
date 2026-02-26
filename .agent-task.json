@@ -1,0 +1,29 @@
+{
+  "description": "ALS患者向け視線追跡・AI駆動コミュニケーションプラットフォーム。Python FastAPIバックエンド（視線推定・LLM推論・TTS）、Electron患者UI、React PWA介護者ダッシュボードのモノレポ構成。pnpm + UV。",
+  "commands": [
+    { "name": "Dev: Backend", "command": "portless voice-reach-api uv run voicereach" },
+    { "name": "Dev: Caregiver PWA", "command": "portless voice-reach-caregiver pnpm dev:caregiver" },
+    { "name": "Dev: Patient UI (Electron)", "command": "pnpm dev:patient" },
+    { "name": "Test: All (JS)", "command": "pnpm test" },
+    { "name": "Test: Backend (Python)", "command": "cd backend && uv run pytest" },
+    { "name": "Test: E2E Caregiver", "command": "cd caregiver-pwa && pnpm test:e2e" },
+    { "name": "Lint (JS)", "command": "pnpm lint" },
+    { "name": "Lint (Python)", "command": "uv run ruff check backend/src" },
+    { "name": "Typecheck (JS)", "command": "pnpm typecheck" },
+    { "name": "Typecheck (Python)", "command": "uv run mypy backend/src" },
+    { "name": "Build: Caregiver PWA", "command": "pnpm build:caregiver" },
+    { "name": "Build: Patient UI", "command": "pnpm build:patient" },
+    { "name": "Env Check", "command": "uv run voicereach-env" },
+    { "name": "Benchmark", "command": "uv run voicereach-bench" }
+  ],
+  "links": [
+    { "name": "Backend API", "url": "http://voice-reach-api.localhost:1355/" },
+    { "name": "Caregiver PWA", "url": "http://voice-reach-caregiver.localhost:1355/" },
+    { "name": "GitHub", "url": "https://github.com/nyosegawa/voice-reach" }
+  ],
+  "shortcuts": [
+    { "name": "バグ修正", "agent": "claude-code", "prompt": "バグの内容を説明してください。コードを調査し、修正を実装してテストを追加します。" },
+    { "name": "新機能追加", "agent": "claude-code", "prompt": "追加したい機能を説明してください。docs/ の設計ドキュメントを参照しながら実装します。" },
+    { "name": "テスト追加", "agent": "claude-code", "prompt": "テストが不足しているモジュールを特定し、ユニットテスト・E2Eテストを追加します。対象を指定してください。" }
+  ]
+}
